@@ -14,6 +14,7 @@ def create_app(config_name: str = "dev") -> Flask:
 
     CORS(app, origins=[
         "https://toyboxing.th-fchs.fr",
+        "https://app-toyboxing.th-fchs.fr",
         "http://localhost:5173",
         "http://localhost:3000",
     ])
