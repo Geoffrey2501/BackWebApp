@@ -9,7 +9,7 @@ def get_validated_box(subscriber_id: str) -> list[Box] | None:
     for box in store.boxes:
         if box.subscriber_id == subscriber_id and box.validated:
             boxs.append(box)
-    return None
+    return boxs
 
 
 def get_boxes_details(boxes: list[Box]) -> list[dict]:
