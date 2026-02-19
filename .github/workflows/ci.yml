@@ -2,9 +2,10 @@ name: Backend CI
 
 on:
   push:
-    branches: [ "main", "setup-github-actions" ] 
+    branches: [ "main", "setup-github-actions" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   lint-and-test:
