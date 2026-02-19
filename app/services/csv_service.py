@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from app.store.memory_store import store
 
 
 def export_optimizer_input(max_weight: int) -> str:

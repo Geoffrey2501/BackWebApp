@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from app.models.article import AgeRange, Category
 from app.models.subscriber import Subscriber
-from app.store.memory_store import store
-
 
 def register_subscriber(
     first_name: str,

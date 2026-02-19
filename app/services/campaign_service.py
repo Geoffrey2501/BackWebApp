@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from app.models.box import Box, BoxHistoryEntry
 from app.models.campaign import Campaign, CampaignStatus
-from app.store.memory_store import store
 from optimizer.api import run_optimization
 
 

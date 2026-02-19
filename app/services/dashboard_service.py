@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from collections import Counter
 
-from app.store.memory_store import store
 
 
 def get_dashboard_stats() -> dict:

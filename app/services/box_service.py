@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from app.models.box import Box
-from app.store.memory_store import store
-
 
 def get_validated_box(subscriber_id: str) -> list[Box] | None:
     boxs = []
