@@ -14,10 +14,15 @@ Python 3.14 · Flask · SQLAlchemy + MySQL · React (Vite) · Docker · GCP · C
 
 | Membre | Role |
 |--------|------|
-| **Thomas** | DevOps — deploiement complet (Terraform GCP, Docker, CI/CD, Cloudflare, bucket GCS) |
-| **Geoffrey** | Backend Python / Flask, integration BDD MySQL (SQLAlchemy), debug |
-| **Vivian** | Frontend React complet (interface admin + espace abonne) |
-| **Marcelin** | Frontend React complet (interface admin + espace abonne) |
+| **Thomas Fuchs** | DevOps — deploiement complet (Terraform GCP, Docker, CI/CD, Cloudflare, bucket GCS) |
+| **Geoffrey Gros** | Backend Python / Flask, module d'optimisation, integration BDD MySQL (SQLAlchemy), debug |
+| **Vivien Herrmann** | Frontend React complet (interface admin + espace abonne) |
+| **Marcelin Ray** | Frontend React complet (interface admin + espace abonne) |
+
+### Depots
+
+- **Backend** : https://github.com/Geoffrey2501/BackWebApp
+- **Frontend** : https://github.com/Nilecramm/FrontCCD
 
 ---
 
