@@ -56,7 +56,7 @@ def get_box():
     boxs = box_service.get_validated_box(sub.id)
     if boxs is None:
         return jsonify({"error": "Aucune box validée"}), 404
-    return jsonify(box_service.box_detail(boxs))
+    return jsonify(box_service.get_boxes_details(boxs))
 
 
 @bp.route("/preferences", methods=["PUT"])
