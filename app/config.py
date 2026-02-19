@@ -1,9 +1,20 @@
+import os
+
+
+def _build_db_uri() -> str:
+    host = os.environ.get("DB_HOST", "localhost")
+    user = os.environ.get("DB_USER", "root")
+    password = os.environ.get("DB_PASSWORD", "")
+    name = os.environ.get("DB_NAME", "toys_academy")
+    if password:
+        return f"mysql+pymysql://{user}:{password}@{host}/{name}"
+    return f"mysql+pymysql://{user}@{host}/{name}"
 
 
 class Config:
     TESTING = False
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root@localhost/toyboxing_db"
+    SQLALCHEMY_DATABASE_URI = _build_db_uri()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
