@@ -1,8 +1,9 @@
 from __future__ import annotations
+
 from app import db
+from app.models.article import Article
 from app.models.box import Box, BoxHistoryEntry
 from app.models.campaign import Campaign, CampaignStatus
-from app.models.article import Article
 from app.models.subscriber import Subscriber
 from optimizer.api import run_optimization
 

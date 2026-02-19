@@ -55,14 +55,12 @@ def test_subscriber_box_after_validation(client, sample_articles, sample_subscri
     for box in boxes:
         client.post(f"/admin/campaigns/{cid}/boxes/{box['subscriber_id']}/validate")
 
-    # Check subscriber can see their box (returns a list now)
+    # Check subscriber can see their box
     resp = client.get("/subscriber/box?email=alice@test.com")
     assert resp.status_code == 200
     data = resp.get_json()
-    assert isinstance(data, list)
-    assert len(data) >= 1
-    assert data[0]["validated"] is True
-    assert "articles" in data[0]
+    assert data["validated"] is True
+    assert "articles" in data
 
 
 def test_subscriber_history_after_validation(client, sample_articles, sample_subscribers):

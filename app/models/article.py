@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from app import db
 from enum import Enum
+
+from app import db
 
 
 class Category(str, Enum):

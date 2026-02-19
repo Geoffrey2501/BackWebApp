@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from app import db
 from datetime import datetime
+
+from app import db
+
 
 class Box(db.Model):
     __tablename__ = 'boxes'

@@ -1,5 +1,5 @@
+
 import requests
-import json
 
 BASE_URL = "http://localhost:10000"
 
@@ -53,7 +53,8 @@ def test_toyboxing_flow():
 
     # 5. Valider la box de l'abonné
     print(f"\n[5] Validation de la box pour l'abonné {subscriber['id']}...")
-    res = requests.post(f"{BASE_URL}/admin/campaigns/{campaign_id}/boxes/{subscriber['id']}/validate")
+    url = f"{BASE_URL}/admin/campaigns/{campaign_id}/boxes/{subscriber['id']}/validate"
+    res = requests.post(url)
     if res.status_code == 200:
         print("Box validée avec succès !")
     else:

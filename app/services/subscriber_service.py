@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from app import db
 from app.models.article import AgeRange, Category
 from app.models.subscriber import Subscriber

@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 
+from app.models.box import BoxHistoryEntry
 
 bp = Blueprint("admin_history", __name__, url_prefix="/admin/history")
 
@@ -8,7 +9,7 @@ bp = Blueprint("admin_history", __name__, url_prefix="/admin/history")
 def history():
     # Group by campaign
     campaigns_data: dict[str, dict] = {}
-    for entry in store.box_history:
+    for entry in BoxHistoryEntry.query.all():
         cid = entry.campaign_id
         if cid not in campaigns_data:
             campaigns_data[cid] = {

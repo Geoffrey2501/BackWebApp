@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request
 
+from app.models.article import Article
+from app.models.subscriber import Subscriber
 from app.services import campaign_service
 
 bp = Blueprint("admin_campaigns", __name__, url_prefix="/admin/campaigns")
@@ -41,11 +43,11 @@ def get_boxes(campaign_id: str):
         # Enrich with article details
         box_data["articles"] = []
         for art_id in box.article_ids:
-            art = store.articles.get(art_id)
+            art = Article.query.get(art_id)
             if art:
                 box_data["articles"].append(art.to_dict())
         # Enrich with subscriber info
-        sub = store.subscribers.get(box.subscriber_id)
+        sub = Subscriber.query.get(box.subscriber_id)
         if sub:
             box_data["subscriber_name"] = f"{sub.first_name} {sub.last_name}"
         result.append(box_data)

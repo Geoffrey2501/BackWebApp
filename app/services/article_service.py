@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from app import db
-from app.models.article import AgeRange, Article, Category, Condition
-
-from app import db  # Importation de l'instance SQLAlchemy
+from app.models.article import Article
 
 
 def add_article(designation, category, age_range, condition, price, weight):
@@ -39,11 +37,11 @@ def list_articles(
 ) -> list[Article]:
     result = list(Article.query.all())
     if category:
-        result = [a for a in result if a.category.value == category]
+        result = [a for a in result if a.category == category]
     if age_range:
-        result = [a for a in result if a.age_range.value == age_range]
+        result = [a for a in result if a.age_range == age_range]
     if condition:
-        result = [a for a in result if a.condition.value == condition]
+        result = [a for a in result if a.condition == condition]
     return result
 
 

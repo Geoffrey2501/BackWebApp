@@ -1,8 +1,11 @@
 from __future__ import annotations
+
 from collections import Counter
+
 from app.models.article import Article
-from app.models.subscriber import Subscriber
 from app.models.box import Box
+from app.models.subscriber import Subscriber
+
 
 def get_dashboard_stats() -> dict:
     # 1. Récupération de toutes les données nécessaires depuis la DB

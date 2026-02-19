@@ -1,8 +1,10 @@
 """Import/export CSV for the web app, bridging to optimizer format."""
 
 from __future__ import annotations
+
 from app.models.article import Article
 from app.models.subscriber import Subscriber
+
 
 def export_optimizer_input(max_weight: int) -> str:
     """Generate CSV input string for the optimizer from current database data."""
@@ -11,8 +13,7 @@ def export_optimizer_input(max_weight: int) -> str:
     # Récupération de tous les articles en base de données
     articles = Article.query.all()
     for art in articles:
-        # On utilise .value si ce sont des Enums, ou directement l'attribut s'il est stocké en String
-        # Note : Dans tes modèles Article, category/age_range/condition sont des String
+        # .value si Enum, sinon attribut direct (String en base)
         lines.append(
             f"{art.id};{art.designation};{art.category};"
             f"{art.age_range};{art.condition};{art.price};{art.weight}"

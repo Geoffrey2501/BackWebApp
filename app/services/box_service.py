@@ -1,6 +1,7 @@
 from __future__ import annotations
-from app.models.box import Box, BoxHistoryEntry
+
 from app.models.article import Article
+from app.models.box import Box, BoxHistoryEntry
 from app.models.subscriber import Subscriber
 
 
