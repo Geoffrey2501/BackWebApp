@@ -14,14 +14,7 @@ build/
 wheels/
 MANIFEST
 
-# Virtual environments
-.venv/
-venv/
-ENV/
 
-# Environment variables
-!.env
-!.env.*
 
 # Unit test / coverage
 htmlcov/
