@@ -11,23 +11,25 @@ from optimizer.scorer import score_composition, score_subscriber_box
 
 
 def _to_opt_article(a: Article) -> OptArticle:
+    # Suppression de .value car les champs sont déjà des chaînes en DB
     return OptArticle(
         id=a.id,
         designation=a.designation,
-        category=a.category.value,
-        age_range=a.age_range.value,
-        condition=a.condition.value,
+        category=a.category,
+        age_range=a.age_range,
+        condition=a.condition,
         price=a.price,
         weight=a.weight,
     )
 
 
 def _to_opt_subscriber(s: Subscriber) -> OptSubscriber:
+    # child_age_range est une String et category_preferences est une liste de Strings
     return OptSubscriber(
         id=s.id,
         name=s.first_name,
-        age_range=s.child_age_range.value,
-        preferences=[c.value for c in s.category_preferences],
+        age_range=s.child_age_range,
+        preferences=s.category_preferences,
     )
 
 
@@ -46,16 +48,14 @@ def run_optimization(
     boxes: list[Box] = []
     for sub in subscribers:
         assignment = composition.assignments.get(sub.id)
-        if assignment is None:
-            arts: list[OptArticle] = []
-        else:
-            arts = assignment.articles
+        arts = assignment.articles if assignment else []
 
         opt_sub = _to_opt_subscriber(sub)
         box_score = score_subscriber_box(opt_sub, arts)
 
+        # Création de l'objet Box sans ID (MySQL le gérera)
         box = Box(
-            campaign_id="",  # set by caller
+            campaign_id="",  # Défini par l'appelant dans campaign_service
             subscriber_id=sub.id,
             article_ids=[a.id for a in arts],
             score=box_score,

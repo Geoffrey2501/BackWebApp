@@ -7,8 +7,14 @@ from app import db  # Importation de l'instance SQLAlchemy
 
 
 def add_article(designation, category, age_range, condition, price, weight):
-    # On crée l'objet sans spécifier d'ID manuel
+    # 1. Calculer le prochain ID (ex: a1, a2...)
+    # On compte le nombre d'articles existants pour générer le suivant
+    count = Article.query.count()
+    new_id = f"a{count + 1}"
+
+    # 2. Créer l'objet avec l'ID généré
     article = Article(
+        id=new_id,
         designation=designation,
         category=category,
         age_range=age_range,
@@ -17,10 +23,9 @@ def add_article(designation, category, age_range, condition, price, weight):
         weight=weight
     )
 
-    db.session.add(article)  # Prépare l'insertion
-    db.session.commit()  # Exécute l'insertion dans MySQL
+    db.session.add(article)
+    db.session.commit()
 
-    # Après le commit, article.id est automatiquement rempli par la BD
     return article
 
 def get_article(article_id: str) -> Article | None:
