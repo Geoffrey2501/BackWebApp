@@ -35,4 +35,5 @@ config_by_name = {
     "dev": DevConfig,
     "test": TestConfig,
     "prod": ProdConfig,
+    "production": ProdConfig,
 }
