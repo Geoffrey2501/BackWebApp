@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
 
   backend:
-    image: ${DOCKERHUB_USER:-toyboxing}/backend:${TAG:-latest}
+    image: ${DOCKERHUB_USER:-toyboxing}/toyboxing-backend:${TAG:-latest}
     build: .
     expose:
       - "5000"
