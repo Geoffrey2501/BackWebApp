@@ -1,0 +1,6 @@
+project_id       = "ton-projet-gcp"
+region           = "europe-west9"
+zone             = "europe-west9-a"
+machine_type     = "e2-small"
+ssh_user         = "deploy"
+ssh_pub_key_path = "~/.ssh/id_rsa.pub"
