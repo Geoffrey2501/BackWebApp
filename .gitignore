@@ -58,5 +58,8 @@ Thumbs.db
 # Docker
 docker-compose.override.yml
 
+# Env
+.env
+
 # PDF Files
 *.pdf
