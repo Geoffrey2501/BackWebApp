@@ -65,7 +65,7 @@ def get_box():
     # On enrichit les détails et on ne renvoie que la PREMIÈRE (la plus récente)
     # box_service.get_boxes_details renvoie une liste de dicts, on prend l'index [0]
     details = box_service.get_boxes_details(boxs)
-    return jsonify(details[0])
+    return jsonify(details)
 
 
 @bp.route("/preferences", methods=["PUT"])
