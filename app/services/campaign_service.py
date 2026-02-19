@@ -74,11 +74,11 @@ def validate_box(campaign_id: str, subscriber_id: str) -> tuple[Box | None, str 
 
     box.validated = True
 
-    # Verrouillage des articles (is_locked)
+    # Retrait des articles du stock (ils partent dans la box)
     for art_id in box.article_ids:
         article = Article.query.get(art_id)
         if article:
-            article.is_locked = True
+            db.session.delete(article)
 
     # Ajout à l'historique
     entry = BoxHistoryEntry(

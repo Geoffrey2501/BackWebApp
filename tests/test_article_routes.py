@@ -104,8 +104,8 @@ def test_update_article(client):
     assert resp.get_json()["designation"] == "Updated"
 
 
-def test_update_locked_article(client, sample_articles, sample_subscribers):
-    """Article in a validated box cannot be modified (409)."""
+def test_validated_article_removed_from_stock(client, sample_articles, sample_subscribers):
+    """Articles in a validated box are removed from stock."""
     # Create campaign and optimize
     resp = client.post("/admin/campaigns", json={"max_weight_per_box": 1200})
     cid = resp.get_json()["id"]
@@ -114,12 +114,14 @@ def test_update_locked_article(client, sample_articles, sample_subscribers):
     # Get boxes and validate one
     resp = client.get(f"/admin/campaigns/{cid}/boxes")
     boxes = resp.get_json()
+    validated_art_ids = []
     for box in boxes:
         if box["article_ids"]:
             client.post(f"/admin/campaigns/{cid}/boxes/{box['subscriber_id']}/validate")
-            locked_art_id = box["article_ids"][0]
+            validated_art_ids = box["article_ids"]
             break
 
-    # Try to update locked article
-    resp = client.put(f"/admin/articles/{locked_art_id}", json={"designation": "Nope"})
-    assert resp.status_code == 409
+    # Articles should no longer exist in stock
+    for art_id in validated_art_ids:
+        resp = client.get(f"/admin/articles/{art_id}")
+        assert resp.status_code == 404
