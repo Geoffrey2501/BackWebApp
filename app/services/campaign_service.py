@@ -34,12 +34,15 @@ def optimize_campaign(campaign_id: str) -> tuple[list[Box] | None, str | None]:
     if campaign.status != CampaignStatus.CREATED:
         return None, "Campagne déjà optimisée"
 
-    # Récupération des données depuis la DB
-    articles = Article.query.all()
+    # CORRECTION : On ne récupère que les articles DISPONIBLES (non verrouillés)
+    articles = Article.query.filter_by(is_locked=False).all()
+
     subscribers = Subscriber.query.all()
 
     if not subscribers:
         return None, "Aucun abonné enregistré"
+
+    # Le reste du code reste identique...
 
     # Lancement de l'algorithme
     boxes = run_optimization(articles, subscribers, campaign.max_weight_per_box)
