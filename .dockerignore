@@ -1,0 +1,16 @@
+.env
+.env.example
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+htmlcov
+.coverage
+terraform/
+CLAUDE.md
+*.pdf
+*.md
+tests/
