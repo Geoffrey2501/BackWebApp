@@ -5,9 +5,9 @@ from datetime import datetime, timedelta, timezone
 
 import jwt
 
-SECRET_KEY = os.environ.get("JWT_SECRET", "dev-secret-change-me-in-prod")
+SECRET_KEY = os.environ.get("JWT_SECRET", "dev-secret-key")
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "toyboxing2026")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin")
 TOKEN_EXPIRY_HOURS = 8
 
 

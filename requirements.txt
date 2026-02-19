@@ -1,13 +1,10 @@
 flask>=3.0
 flask-cors
+flask-sqlalchemy
 gunicorn>=22.0
 pyjwt>=2.8
 pymysql>=1.1
+cryptography
 pytest>=8.0
 pytest-cov>=5.0
-
 ruff>=0.4
-flask-sqlalchemy
-pymysql
-cryptography
-

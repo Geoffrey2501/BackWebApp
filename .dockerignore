@@ -10,6 +10,7 @@ __pycache__
 htmlcov
 .coverage
 terraform/
+docs/
 CLAUDE.md
 *.pdf
 *.md

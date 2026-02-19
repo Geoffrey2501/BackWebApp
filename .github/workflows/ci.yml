@@ -2,7 +2,7 @@ name: Backend CI
 
 on:
   push:
-    branches: [ "main", "setup-github-actions" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
