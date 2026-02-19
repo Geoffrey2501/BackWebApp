@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, request
 
 from app.services import campaign_service
-from app.store.memory_store import store
 
 bp = Blueprint("admin_campaigns", __name__, url_prefix="/admin/campaigns")
 

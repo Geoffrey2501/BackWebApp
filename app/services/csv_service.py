@@ -1,24 +1,35 @@
 """Import/export CSV for the web app, bridging to optimizer format."""
 
 from __future__ import annotations
-
-from app.store.memory_store import store
-
+from app.models.article import Article
+from app.models.subscriber import Subscriber
 
 def export_optimizer_input(max_weight: int) -> str:
-    """Generate CSV input string for the optimizer from current store data."""
+    """Generate CSV input string for the optimizer from current database data."""
     lines = ["articles"]
-    for art in store.articles.values():
+
+    # Récupération de tous les articles en base de données
+    articles = Article.query.all()
+    for art in articles:
+        # On utilise .value si ce sont des Enums, ou directement l'attribut s'il est stocké en String
+        # Note : Dans tes modèles Article, category/age_range/condition sont des String
         lines.append(
-            f"{art.id};{art.designation};{art.category.value};"
-            f"{art.age_range.value};{art.condition.value};{art.price};{art.weight}"
+            f"{art.id};{art.designation};{art.category};"
+            f"{art.age_range};{art.condition};{art.price};{art.weight}"
         )
+
     lines.append("")
     lines.append("abonnes")
-    for sub in store.subscribers.values():
-        prefs = ",".join(c.value for c in sub.category_preferences)
-        lines.append(f"{sub.id};{sub.first_name};{sub.child_age_range.value};{prefs}")
+
+    # Récupération de tous les abonnés en base de données
+    subscribers = Subscriber.query.all()
+    for sub in subscribers:
+        # category_preferences est stocké en JSON (liste) dans la base de données
+        prefs = ",".join(sub.category_preferences)
+        lines.append(f"{sub.id};{sub.first_name};{sub.child_age_range};{prefs}")
+
     lines.append("")
     lines.append("parametres")
     lines.append(str(max_weight))
+
     return "\n".join(lines)

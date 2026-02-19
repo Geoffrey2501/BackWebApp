@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify
 
-from app.store.memory_store import store
 
 bp = Blueprint("admin_history", __name__, url_prefix="/admin/history")
 

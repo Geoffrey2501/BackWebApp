@@ -1,18 +1,21 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from app import db
 from datetime import datetime
 
+class Box(db.Model):
+    __tablename__ = 'boxes'
 
-@dataclass
-class Box:
-    campaign_id: str
-    subscriber_id: str
-    article_ids: list[str] = field(default_factory=list)
-    validated: bool = False
-    score: int = 0
-    total_weight: int = 0
-    total_price: int = 0
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    campaign_id = db.Column(db.String(10), db.ForeignKey('campaigns.id'), nullable=False)
+    subscriber_id = db.Column(db.String(10), db.ForeignKey('subscribers.id'), nullable=False)
+    article_ids = db.Column(db.JSON, nullable=False) # Liste des IDs
+    validated = db.Column(db.Boolean, default=False)
+    score = db.Column(db.Integer, default=0)
+    total_weight = db.Column(db.Integer, default=0)
+    total_price = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow) # Pour l'historique
 
     def to_dict(self) -> dict:
         return {
@@ -23,18 +26,23 @@ class Box:
             "score": self.score,
             "total_weight": self.total_weight,
             "total_price": self.total_price,
+            "timestamp": self.created_at.isoformat()
         }
 
 
-@dataclass
-class BoxHistoryEntry:
-    campaign_id: str
-    subscriber_id: str
-    article_ids: list[str] = field(default_factory=list)
-    score: int = 0
-    total_weight: int = 0
-    total_price: int = 0
-    timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
+class BoxHistoryEntry(db.Model):
+    __tablename__ = 'box_history'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    campaign_id = db.Column(db.String(10), nullable=False)
+    subscriber_id = db.Column(db.String(10), nullable=False)
+    # article_ids est stocké en JSON pour figer la liste au moment de la validation
+    article_ids = db.Column(db.JSON, nullable=False)
+    score = db.Column(db.Integer, default=0)
+    total_weight = db.Column(db.Integer, default=0)
+    total_price = db.Column(db.Integer, default=0)
+    # On utilise le type DateTime natif de SQL pour plus de précision
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def to_dict(self) -> dict:
         return {
@@ -44,5 +52,5 @@ class BoxHistoryEntry:
             "score": self.score,
             "total_weight": self.total_weight,
             "total_price": self.total_price,
-            "timestamp": self.timestamp,
+            "timestamp": self.timestamp.isoformat() if self.timestamp else None,
         }

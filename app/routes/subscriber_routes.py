@@ -50,13 +50,22 @@ def get_box():
     email = request.args.get("email", "").strip()
     if not email:
         return jsonify({"error": "email requis"}), 400
+
     sub = subscriber_service.find_by_email(email)
     if sub is None:
         return jsonify({"error": "Abonné non trouvé"}), 404
+
+    # Récupère la liste des box validées
     boxs = box_service.get_validated_box(sub.id)
-    if boxs is None:
+
+    # Correction : On vérifie si la liste est vide
+    if not boxs:
         return jsonify({"error": "Aucune box validée"}), 404
-    return jsonify(box_service.get_boxes_details(boxs))
+
+    # On enrichit les détails et on ne renvoie que la PREMIÈRE (la plus récente)
+    # box_service.get_boxes_details renvoie une liste de dicts, on prend l'index [0]
+    details = box_service.get_boxes_details(boxs)
+    return jsonify(details[0])
 
 
 @bp.route("/preferences", methods=["PUT"])

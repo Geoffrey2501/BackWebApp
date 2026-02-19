@@ -3,8 +3,6 @@ import pytest
 from app import create_app
 from app.models.article import AgeRange, Category, Condition
 from app.services import article_service, subscriber_service
-from app.store.memory_store import store
-
 
 @pytest.fixture()
 def app():

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from app import db
 from enum import Enum
 
 
@@ -26,23 +26,26 @@ class Condition(str, Enum):
     B = "B"
 
 
-@dataclass
-class Article:
-    id: str
-    designation: str
-    category: Category
-    age_range: AgeRange
-    condition: Condition
-    price: int
-    weight: int
+class Article(db.Model):
+    __tablename__ = 'articles'
+
+    id = db.Column(db.String(10), primary_key=True) # Format "a1", "a2"...
+    designation = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(10), nullable=False) # Enum SOC, FIG, etc.
+    age_range = db.Column(db.String(5), nullable=False) # Enum BB, PE, etc.
+    condition = db.Column(db.String(5), nullable=False) # Enum N, TB, B
+    price = db.Column(db.Integer, nullable=False)
+    weight = db.Column(db.Integer, nullable=False)
+    is_locked = db.Column(db.Boolean, default=False) # Pour bloquer la modif après validation
 
     def to_dict(self) -> dict:
         return {
             "id": self.id,
             "designation": self.designation,
-            "category": self.category.value,
-            "age_range": self.age_range.value,
-            "condition": self.condition.value,
+            "category": self.category,
+            "age_range": self.age_range,
+            "condition": self.condition,
             "price": self.price,
             "weight": self.weight,
+            "is_locked": self.is_locked
         }
