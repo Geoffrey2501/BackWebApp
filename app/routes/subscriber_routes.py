@@ -53,10 +53,10 @@ def get_box():
     sub = subscriber_service.find_by_email(email)
     if sub is None:
         return jsonify({"error": "Abonné non trouvé"}), 404
-    box = box_service.get_validated_box(sub.id)
-    if box is None:
+    boxs = box_service.get_validated_box(sub.id)
+    if boxs is None:
         return jsonify({"error": "Aucune box validée"}), 404
-    return jsonify(box_service.box_detail(box))
+    return jsonify(box_service.box_detail(boxs))
 
 
 @bp.route("/preferences", methods=["PUT"])

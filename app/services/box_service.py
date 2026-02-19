@@ -4,24 +4,44 @@ from app.models.box import Box
 from app.store.memory_store import store
 
 
-def get_validated_box(subscriber_id: str) -> Box | None:
+def get_validated_box(subscriber_id: str) -> list[Box] | None:
+    boxs = []
     for box in store.boxes:
         if box.subscriber_id == subscriber_id and box.validated:
-            return box
+            boxs.append(box)
     return None
 
 
-def box_detail(box: Box) -> dict:
-    data = box.to_dict()
-    data["articles"] = []
-    for art_id in box.article_ids:
-        art = store.articles.get(art_id)
-        if art:
-            data["articles"].append(art.to_dict())
-    sub = store.subscribers.get(box.subscriber_id)
-    if sub:
-        data["subscriber_name"] = f"{sub.first_name} {sub.last_name}"
-    return data
+def get_boxes_details(boxes: list[Box]) -> list[dict]:
+    """
+    Prend une liste d'objets Box et retourne une liste de dictionnaires
+    enrichis avec le détail des articles et le nom de l'abonné.
+    """
+    result = []
+    for box in boxes:
+        # On commence par transformer l'objet Box en dictionnaire
+        # La méthode to_dict() est définie dans app/models/box.py
+        data = box.to_dict()
+
+        # On initialise la liste des articles détaillés
+        data["articles"] = []
+
+        # On parcourt les IDs d'articles stockés dans la box
+        for art_id in box.article_ids:
+            # On récupère l'article complet depuis le store
+            art = store.articles.get(art_id)
+            if art:
+                # On ajoute le dictionnaire de l'article
+                data["articles"].append(art.to_dict())
+
+        # On récupère les informations de l'abonné
+        sub = store.subscribers.get(box.subscriber_id)
+        if sub:
+            data["subscriber_name"] = f"{sub.first_name} {sub.last_name}"
+
+        result.append(data)
+
+    return result
 
 
 def get_subscriber_history(subscriber_id: str) -> list[dict]:
