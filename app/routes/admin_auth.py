@@ -1,4 +1,5 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify, request
+
 from app.services import auth_service
 
 bp = Blueprint("admin_auth", __name__, url_prefix="/admin")

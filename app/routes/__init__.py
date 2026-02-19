@@ -3,12 +3,12 @@ from flask import Flask
 
 def register_blueprints(app: Flask) -> None:
     from app.routes.admin_articles import bp as articles_bp
+    from app.routes.admin_auth import bp as admin_auth_bp
     from app.routes.admin_campaigns import bp as campaigns_bp
     from app.routes.admin_dashboard import bp as dashboard_bp
     from app.routes.admin_history import bp as history_bp
     from app.routes.admin_subscribers import bp as subscribers_bp
     from app.routes.subscriber_routes import bp as subscriber_bp
-    from app.routes.admin_auth import bp as admin_auth_bp
 
     app.register_blueprint(articles_bp)
     app.register_blueprint(subscribers_bp)
