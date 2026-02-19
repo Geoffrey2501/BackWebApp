@@ -45,7 +45,7 @@ def optimize_campaign(campaign_id: str) -> tuple[list[Box] | None, str | None]:
 
 
 def get_campaign_boxes(campaign_id: str) -> list[Box]:
-    return [b for b in store.boxes if b.campaign_id == campaign_id]
+    return [b for b in store.boxes if b.campaign_id == campaign_id and not b.validated]
 
 
 def validate_box(campaign_id: str, subscriber_id: str) -> tuple[Box | None, str | None]:
