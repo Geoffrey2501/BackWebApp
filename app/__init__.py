@@ -1,5 +1,6 @@
 from flask import Flask
-from flask_cors import CORS  # Importer l'extension
+from flask_cors import CORS
+
 from app.config import config_by_name
 
 
