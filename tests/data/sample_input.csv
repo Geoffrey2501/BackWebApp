@@ -1,0 +1,17 @@
+articles
+a1;Monopoly Junior;SOC;PE;N;8;400
+a2;Barbie Aventurière;FIG;PE;TB;5;300
+a3;Puzzle éducatif;EVL;PE;TB;7;350
+a4;Cubes alphabet;CON;PE;N;4;300
+a5;Livre cache-cache;LIV;PE;N;3;200
+a6;Kapla 200 pièces;CON;EN;B;10;600
+a7;Cerf-volant Pirate;EXT;EN;N;6;400
+a8;Le Petit Nicolas;LIV;EN;TB;5;200
+
+abonnes
+s1;Alice;PE;SOC,FIG,EVL,CON,LIV,EXT
+s2;Bob;EN;EXT,CON,SOC,EVL,FIG,LIV
+s3;Clara;PE;EVL,LIV,FIG,SOC,CON,EXT
+
+parametres
+1200
